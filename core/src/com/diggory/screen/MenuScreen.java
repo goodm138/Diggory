@@ -24,6 +24,7 @@ public class MenuScreen extends Screen {
     
     private OrthoCamera camera;
     private final Texture texture;
+    private String inputs = "";
     
     public MenuScreen() {
         texture = TextureManager.MENU;
@@ -39,6 +40,7 @@ public class MenuScreen extends Screen {
     @Override
     public void update() {
         camera.update();
+        checkCode();
         if (Gdx.input.isKeyPressed(Keys.SPACE)) {
             SoundManager.TITLE_MUSIC.stop();
             Diggory_Game diggory = new Diggory_Game();
@@ -71,6 +73,37 @@ public class MenuScreen extends Screen {
 
     @Override
     public void resume() {
+    }
+
+    public void checkCode() {
+        if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+            inputs += "U";
+            SoundManager.HIT.play();
+        }
+        if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+            inputs += "D";
+            SoundManager.HIT.play();
+        }
+        if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+            inputs += "L";
+            SoundManager.HIT.play();
+        }
+        if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+            inputs += "R";
+            SoundManager.HIT.play();
+        }
+        if (Gdx.input.isKeyJustPressed(Keys.A)) {
+            inputs += "A";
+            SoundManager.HIT.play();
+        }
+        if (Gdx.input.isKeyJustPressed(Keys.B)) {
+            inputs += "B";
+            SoundManager.HIT.play();
+        }
+        if (inputs.contains("UUDDLRLRBA")) {
+            SoundManager.TITLE_MUSIC.stop();
+            ScreenManager.setScreen(new SecretScreen());
+        }
     }
     
 }

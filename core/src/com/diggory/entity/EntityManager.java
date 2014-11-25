@@ -24,6 +24,7 @@ public class EntityManager {
     
     private final Array<Entity> entities = new Array<Entity>();
     private final Player player;
+    private boolean trophySpawned = false;
     
     public EntityManager(int amount) {
         float px = Diggory.WIDTH / 2 - TextureManager.PLAYER.getWidth() / 2;
@@ -72,13 +73,21 @@ public class EntityManager {
                     entities.removeValue(e, false);
                     entities.removeValue(m, false);
                     SoundManager.HIT.play();
-                    if (gameOver()) {
-                        ScreenManager.setScreen(new GameOverScreen(true));
+                    if (gameOver() && !trophySpawned) {
+                        addEntity(new Trophy(TextureManager.TROPHY, new Vector2(Diggory.WIDTH / 2 - TextureManager.TROPHY.getWidth() / 2, Diggory.HEIGHT), new Vector2(0, (float) -0.65)));
+                        trophySpawned = true;
+                        SoundManager.GAME_MUSIC.stop();
+                        SoundManager.FANFARE.play();
                     }
                 }
             }   
             if (e.getBounds().overlaps(player.getBounds())) {
             ScreenManager.setScreen(new GameOverScreen(false));
+            }
+        }
+        if (getTrophy() != null) {
+            if ((getTrophy().getBounds().overlaps(player.getBounds())) && getTrophy().landed) {
+                ScreenManager.setScreen(new GameOverScreen(true));
             }
         }
     }
@@ -105,6 +114,15 @@ public class EntityManager {
             }
         }
         return ret;
+    }
+    
+    private Trophy getTrophy() {
+        for (Entity e : entities) {
+            if (e instanceof Trophy) {
+                return (Trophy) e;
+            }
+        }
+        return null;
     }
     
     public boolean gameOver() {

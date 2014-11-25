@@ -26,5 +26,7 @@ public class TextureManager {
     public static Texture WINNER = new Texture(Gdx.files.internal("WINNER.png"));
     public static Texture BACKGROUND = new Texture(Gdx.files.internal("bg.png"));
     public static Texture MENU = new Texture(Gdx.files.internal("menu.png"));
+    public static Texture ERROR = new Texture(Gdx.files.internal("error.png"));
+    public static Texture TROPHY = new Texture(Gdx.files.internal("trophy.png"));
     
 }
