@@ -8,6 +8,8 @@ package com.diggory.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.diggory.Diggory;
 import com.diggory.SoundManager;
@@ -22,8 +24,8 @@ public class Player extends Entity {
     private final EntityManager entityManager;
     private long lastFire;
     
-    public Player(Vector2 pos, Vector2 direction, EntityManager entityManager) {
-        super(TextureManager.PLAYER, pos, direction);
+    public Player(Vector2 pos, Vector2 direction, EntityManager entityManager, Texture texture) {
+        super(texture, pos, direction);
         this.entityManager = entityManager;
     }
 
@@ -32,6 +34,7 @@ public class Player extends Entity {
         checkBounds();
         pos.add(direction);
         setMovement();
+        setFlip();
     }
     
     public void checkBounds() {
@@ -41,11 +44,11 @@ public class Player extends Entity {
             }
             pos.y = 0;
         }
-        if (pos.y + direction.y > Diggory.HEIGHT - TextureManager.PLAYER.getHeight()) {
+        if (pos.y + direction.y > Diggory.HEIGHT - texture.getHeight()) {
             if (direction.y > 0) {
                 direction.y = 0;
             }
-            pos.y = Diggory.HEIGHT - TextureManager.PLAYER.getHeight();
+            pos.y = Diggory.HEIGHT - texture.getHeight();
         }
         if (pos.x + direction.x < 0) {
             if (direction.x < 0) {
@@ -53,11 +56,11 @@ public class Player extends Entity {
             }
             pos.x = 0;
         }
-        if (pos.x + direction.x > Diggory.WIDTH - TextureManager.PLAYER.getWidth()) {
+        if (pos.x + direction.x > Diggory.WIDTH - texture.getWidth()) {
             if (direction.x > 0) {
                 direction.x = 0;
             }
-            pos.x = Diggory.WIDTH - TextureManager.PLAYER.getWidth();
+            pos.x = Diggory.WIDTH - texture.getWidth();
         }
     }
     
@@ -95,38 +98,50 @@ public class Player extends Entity {
         else {
             setDirection(0,0);
         }       
-        
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            if (System.currentTimeMillis() - lastFire >= 200) {
-                Vector2 missileDir = new Vector2((direction.x / 2) + 5, direction.y / 2);
-                entityManager.addEntity(new Missile(TextureManager.MISSILE_RIGHT, pos.cpy().add(100, 20), missileDir));
-                lastFire = System.currentTimeMillis();
-                SoundManager.PEW.play();
-            }
-        }        
-        else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-            if (System.currentTimeMillis() - lastFire >= 200) {
-                Vector2 missileDir = new Vector2((direction.x / 2) - 5, direction.y / 2);
-                entityManager.addEntity(new Missile(TextureManager.MISSILE_LEFT, pos.cpy().add(100, 20), missileDir));
-                lastFire = System.currentTimeMillis();
-                SoundManager.PEW.play();
-            }
-        }       
-        else if (Gdx.input.isKeyPressed(Keys.UP)) {
-            if (System.currentTimeMillis() - lastFire >= 200) {
-                Vector2 missileDir = new Vector2(direction.x / 2, (direction.y / 2) + 5);
-                entityManager.addEntity(new Missile(TextureManager.MISSILE_UP, pos.cpy().add(100, 20), missileDir));
-                lastFire = System.currentTimeMillis();
-                SoundManager.PEW.play();
+        if (entityManager != null) {
+            if (!entityManager.secret) {
+                if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+                    if (System.currentTimeMillis() - lastFire >= 200) {
+                        Vector2 missileDir = new Vector2((direction.x / 2) + 5, direction.y / 2);
+                        entityManager.addEntity(new Missile(TextureManager.MISSILE_RIGHT, pos.cpy().add(100, 20), missileDir));
+                        lastFire = System.currentTimeMillis();
+                        SoundManager.PEW.play();
+                    }
+                }        
+                else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+                    if (System.currentTimeMillis() - lastFire >= 200) {
+                        Vector2 missileDir = new Vector2((direction.x / 2) - 5, direction.y / 2);
+                        entityManager.addEntity(new Missile(TextureManager.MISSILE_LEFT, pos.cpy().add(100, 20), missileDir));
+                        lastFire = System.currentTimeMillis();
+                        SoundManager.PEW.play();
+                    }
+                }       
+                else if (Gdx.input.isKeyPressed(Keys.UP)) {
+                    if (System.currentTimeMillis() - lastFire >= 200) {
+                        Vector2 missileDir = new Vector2(direction.x / 2, (direction.y / 2) + 5);
+                        entityManager.addEntity(new Missile(TextureManager.MISSILE_UP, pos.cpy().add(100, 20), missileDir));
+                        lastFire = System.currentTimeMillis();
+                        SoundManager.PEW.play();
+                    }
+                }
+                else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+                    if (System.currentTimeMillis() - lastFire >= 200) {
+                        Vector2 missileDir = new Vector2(direction.x / 2, (direction.y / 2) - 5);
+                        entityManager.addEntity(new Missile(TextureManager.MISSILE_DOWN, pos.cpy().add(100, 20), missileDir));
+                        lastFire = System.currentTimeMillis();
+                        SoundManager.PEW.play();
+                    }
+                }
             }
         }
-        else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-            if (System.currentTimeMillis() - lastFire >= 200) {
-                Vector2 missileDir = new Vector2(direction.x / 2, (direction.y / 2) - 5);
-                entityManager.addEntity(new Missile(TextureManager.MISSILE_DOWN, pos.cpy().add(100, 20), missileDir));
-                lastFire = System.currentTimeMillis();
-                SoundManager.PEW.play();
-            }
+    }
+
+    private void setFlip() {
+        if (!tex.isFlipX() && direction.x < 0) {
+            tex.flip(true, false);
+        }
+        if (tex.isFlipX() && direction.x > 0) {
+            tex.flip(true, false);
         }
     }
     

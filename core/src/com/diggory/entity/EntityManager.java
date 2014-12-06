@@ -6,6 +6,7 @@
 
 package com.diggory.entity;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -25,22 +26,37 @@ public class EntityManager {
     private final Array<Entity> entities = new Array<Entity>();
     private final Player player;
     private boolean trophySpawned = false;
+    private final Texture playerTex;
+    private final Texture enemyTex;
+    private final Texture enemyTexR;
+    public boolean secret;
     
-    public EntityManager(int amount) {
-        float px = Diggory.WIDTH / 2 - TextureManager.PLAYER.getWidth() / 2;
-        player = new Player(new Vector2(px, 0), new Vector2(0,0), this);
+    public EntityManager(int amount, boolean secret) {
+        this.secret = secret;
+        if (secret) {
+            playerTex = TextureManager.PLAYER_S;
+            enemyTex = TextureManager.ENEMY_S;
+            enemyTexR = TextureManager.ENEMY_S_R;
+        }
+        else {
+            playerTex = TextureManager.PLAYER;
+            enemyTex = TextureManager.ENEMY;
+            enemyTexR = TextureManager.ENEMY_RIGHT;
+        }
+        float px = Diggory.WIDTH / 2 - playerTex.getWidth() / 2;
+        player = new Player(new Vector2(px, 0), new Vector2(0,0), this, playerTex);
         for (int i = 0; i < amount; i++) {
-            float y = MathUtils.random(0, Diggory.HEIGHT - TextureManager.ENEMY.getHeight());
+            float y = MathUtils.random(0, Diggory.HEIGHT - enemyTex.getHeight());
             float dir = MathUtils.random(0, 10);
             if (dir > 5) {
                 float x = MathUtils.random(Diggory.WIDTH, Diggory.WIDTH * 2);
                 float speed = MathUtils.random(2, 5);
-                addEntity(new Enemy(TextureManager.ENEMY, new Vector2(x, y), new Vector2(-speed, 0)));
+                addEntity(new Enemy(enemyTex, new Vector2(x, y), new Vector2(-speed, 0)));
             }
             else {
-                float x = MathUtils.random(-Diggory.WIDTH - TextureManager.ENEMY.getWidth(), -TextureManager.ENEMY.getWidth());
+                float x = MathUtils.random(-Diggory.WIDTH - enemyTex.getWidth(), -enemyTex.getWidth());
                 float speed = MathUtils.random(2, 5);
-                addEntity(new Enemy(TextureManager.ENEMY_RIGHT, new Vector2(x, y), new Vector2(speed, 0)));
+                addEntity(new Enemy(enemyTexR, new Vector2(x, y), new Vector2(speed, 0)));
             }            
         }
     }
@@ -82,7 +98,19 @@ public class EntityManager {
                 }
             }   
             if (e.getBounds().overlaps(player.getBounds())) {
-            ScreenManager.setScreen(new GameOverScreen(false));
+                if (!secret) {
+                    ScreenManager.setScreen(new GameOverScreen(false));
+                }
+                else {
+                    entities.removeValue(e, false);
+                    SoundManager.WAH.play();
+                    if (gameOver() && !trophySpawned) {
+                        addEntity(new Trophy(TextureManager.TROPHY, new Vector2(Diggory.WIDTH / 2 - TextureManager.TROPHY.getWidth() / 2, Diggory.HEIGHT), new Vector2(0, (float) -0.65)));
+                        trophySpawned = true;
+                        SoundManager.GAME_MUSIC.stop();
+                        SoundManager.FANFARE.play();
+                    }
+                }
             }
         }
         if (getTrophy() != null) {

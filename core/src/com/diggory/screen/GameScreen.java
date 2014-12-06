@@ -20,12 +20,18 @@ public class GameScreen extends Screen {
 
     private OrthoCamera camera;
     private EntityManager entityManager;
+    private boolean secret;
+
+    public GameScreen(boolean secret) {
+        this.secret = secret;
+    }
     
     @Override
     public void create() {
         SoundManager.GAME_MUSIC.loop();
         camera = new OrthoCamera();
-        entityManager = new EntityManager(25);
+        entityManager = new EntityManager(25, secret);
+        camera.resize();
     }    
     
     @Override

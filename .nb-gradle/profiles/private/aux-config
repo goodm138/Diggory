@@ -6,9 +6,25 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
       <group/>
     </open-files>
-    <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group/>
+      <group>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/screen/GameOverScreen.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/Diggory.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/screen/Screen.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/TextureManager.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/Diggory_Game.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/entity/Enemy.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/entity/Missile.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/screen/SecretScreen.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/screen/ScreenManager.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/entity/EntityManager.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/SoundManager.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/screen/GameScreen.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/entity/Player.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/screen/MenuScreen.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/entity/Trophy.java</file>
+        <file>file:/C:/Users/Scott%20Goodman/Documents/NetBeansProjects/Diggory/core/src/com/diggory/entity/Entity.java</file>
+      </group>
     </open-files>
   </auxiliary>
 </gradle-project-properties>

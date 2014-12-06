@@ -16,7 +16,7 @@ public class Diggory_Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-                ScreenManager.setScreen(new GameScreen());
+                ScreenManager.setScreen(new GameScreen(false));
 	}
         
         @Override

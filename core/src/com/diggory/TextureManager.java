@@ -28,5 +28,11 @@ public class TextureManager {
     public static Texture MENU = new Texture(Gdx.files.internal("menu.png"));
     public static Texture ERROR = new Texture(Gdx.files.internal("error.png"));
     public static Texture TROPHY = new Texture(Gdx.files.internal("trophy.png"));
+    public static Texture SECRET2 = new Texture(Gdx.files.internal("babby.png"));
+    public static Texture SAD = new Texture(Gdx.files.internal("sad.png"));
+    public static Texture DOLAN = new Texture(Gdx.files.internal("dolan.png"));
+    public static Texture ENEMY_S = new Texture(Gdx.files.internal("catstenchS.png"));
+    public static Texture ENEMY_S_R = new Texture(Gdx.files.internal("catstenchSR.png"));
+    public static Texture PLAYER_S = new Texture(Gdx.files.internal("DiggoryS.png"));
     
 }

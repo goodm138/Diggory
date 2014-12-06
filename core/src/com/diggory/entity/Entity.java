@@ -9,6 +9,7 @@ package com.diggory.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -18,19 +19,21 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class Entity {
     
-    protected Texture texture;
-    protected Vector2 pos, direction;
+    public Texture texture;
+    public Vector2 pos, direction;
+    public TextureRegion tex;
     
     public Entity(Texture texture, Vector2 pos, Vector2 direction) {
         this.texture = texture;
         this.pos = pos;
         this.direction = direction;
+        tex = new TextureRegion(texture);
     }
     
     public abstract void update();
     
     public void render(SpriteBatch sb) {
-        sb.draw(texture, pos.x, pos.y);
+        sb.draw(tex, pos.x, pos.y);
     }
     
     public Vector2 getPosition() {

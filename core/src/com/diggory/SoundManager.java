@@ -26,5 +26,8 @@ public class SoundManager {
     public static Sound SECRET_MUSIC = Gdx.audio.newSound(Gdx.files.internal("secretmusic.mp3"));
     public static Sound SECRET = Gdx.audio.newSound(Gdx.files.internal("secret.wav"));
     public static Sound FANFARE = Gdx.audio.newSound(Gdx.files.internal("fanfare.mp3"));
+    public static Sound SECRET_MUSIC_2 = Gdx.audio.newSound(Gdx.files.internal("secret2.mp3"));
+    public static Sound WHY = Gdx.audio.newSound(Gdx.files.internal("why.mp3"));
+    public static Sound WAH = Gdx.audio.newSound(Gdx.files.internal("wah.wav"));
     
 }
